@@ -70,7 +70,7 @@
                             },
                             {
                             value:
-                            <?php echo 24-$job_count;?>
+                            <?php echo $value->np-$job_count;?>
                             ,
                             color: "#A8BECB"
                             }
