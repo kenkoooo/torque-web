@@ -10,6 +10,8 @@
         </title>
         <!-- Bootstrap core CSS -->
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.9.1/bootstrap-table.min.css"/>
         <!-- Custom styles for this template -->
         <link href="dashboard.css" rel="stylesheet"/>
         <script src="./Chart.js/Chart.js">
@@ -70,7 +72,8 @@
                             },
                             {
                             value:
-                            <?php echo $value->np-$job_count;?>
+                            <?php echo $value->
+                            np-$job_count;?>
                             ,
                             color: "#A8BECB"
                             }
@@ -85,25 +88,28 @@
                     Jobs
                 </h2>
                 <div class="table-responsive">
-                    <table class="table table-striped">
+                    <table class="table table-striped" data-toggle="table"
+                        data-search="true"
+                        data-sort-name="id"
+                        data-sort-order="asc">
                         <thead>
                             <tr>
-                                <th>
+                                <th data-field="id" data-sortable="true" data-field="id" data-sortable="true">
                                     #
                                 </th>
-                                <th>
+                                <th data-field="name" data-sortable="true">
                                     Job Name
                                 </th>
-                                <th>
+                                <th data-field="owner" data-sortable="true">
                                     Owner
                                 </th>
-                                <th>
+                                <th data-field="state" data-sortable="true">
                                     State
                                 </th>
-                                <th>
+                                <th data-field="node" data-sortable="true">
                                     Exec Node
                                 </th>
-                                <th>
+                                <th data-field="time" data-sortable="true">
                                     Used Time
                                 </th>
                             </tr>
@@ -151,13 +157,9 @@
         <!-- Placed at the end of the document so the pages load faster -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
         </script>
-        <script>
-            window.jQuery || document.write('
-            <script src="../../assets/js/vendor/jquery.min.js">
-                <\/script>
-                    ')
-                </script>
-                <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js">
-                </script>
-            </body>
-        </html>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js">
+        </script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.9.1/bootstrap-table.min.js">
+        </script>
+    </body>
+</html>
