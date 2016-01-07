@@ -44,6 +44,8 @@
                 </h1>
                 <div class="row placeholders">
                     <?php
+                    $all_jobs=0;
+                    $all_threads=0;
                     foreach ($pbsnodes_xml->
                     Node as $value) :
                     $node_name= $value->
@@ -66,6 +68,9 @@
                         <?php
                         $job_count=substr_count($value->
                         jobs, ',')+1;
+                        $all_jobs+=$job_count;
+                        $all_threads+=$value->
+                        np;
                         ?>
                         <script>
                             var doughnutData = [
@@ -88,6 +93,34 @@
                         </script>
                     </div>
                     <?php endforeach; ?>
+                    <div class='col-xs-6 col-sm-3 placeholder'>
+                        <canvas width='200' height='200' style='width: 100px; height: 100px;' id="all_nodes">
+                        </canvas>
+                        <h4>
+                            All
+                        </h4>
+                        <span class="text-muted">
+                            <?php echo intval($all_jobs*100/$all_threads)."% Used";?>
+                        </span>
+                        <script>
+                            var doughnutData = [
+                            {
+                            value:
+                            <?php echo $all_jobs;?>
+                            ,
+                            color: "#aaf2fb"
+                            },
+                            {
+                            value:
+                            <?php echo $all_threads-$all_jobs;?>
+                            ,
+                            color: "#A8BECB"
+                            }
+                            ];
+                            var myDoughnut = new Chart(document.getElementById("all_nodes").
+                            getContext("2d")).Doughnut(doughnutData);
+                        </script>
+                    </div>
                 </div>
                 <h2 class="sub-header">
                     Jobs
