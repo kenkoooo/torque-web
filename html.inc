@@ -44,11 +44,8 @@
                 </h1>
                 <div class="row placeholders">
                     <?php
-                    $all_jobs=0;
-                    $all_threads=0;
-                    foreach ($pbsnodes_xml->
-                    Node as $value) :
-                    $node_name= $value->
+                    foreach ($pbsnodes as $value) :
+                    $node_name=(string) $value->
                     name;
                     ?>
                     <div class='col-xs-6 col-sm-3 placeholder'>
@@ -65,25 +62,17 @@
                             <?php echo $value->
                             state;?>
                         </span>
-                        <?php
-                        $job_count=substr_count($value->
-                        jobs, ',')+1;
-                        $all_jobs+=$job_count;
-                        $all_threads+=$value->
-                        np;
-                        ?>
                         <script>
                             var doughnutData = [
                             {
                             value:
-                            <?php echo $job_count;?>
+                            <?php echo $job_counts[$node_name];?>
                             ,
                             color: "#fbaa6e"
                             },
                             {
                             value:
-                            <?php echo $value->
-                            np-$job_count;?>
+                            <?php echo $job_threads[$node_name]-$job_counts[$node_name];?>
                             ,
                             color: "#A8BECB"
                             }
@@ -100,19 +89,19 @@
                             All
                         </h4>
                         <span class="text-muted">
-                            <?php echo intval($all_jobs*100/$all_threads)."% Used";?>
+                            <?php echo intval(array_sum($job_counts)*100/array_sum($job_threads))."% Used";?>
                         </span>
                         <script>
                             var doughnutData = [
                             {
                             value:
-                            <?php echo $all_jobs;?>
+                            <?php echo array_sum($job_counts);?>
                             ,
                             color: "#aaf2fb"
                             },
                             {
                             value:
-                            <?php echo $all_threads-$all_jobs;?>
+                            <?php echo array_sum($job_threads)-array_sum($job_counts);?>
                             ,
                             color: "#A8BECB"
                             }
