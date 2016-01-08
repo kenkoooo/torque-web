@@ -15,6 +15,7 @@ foreach ($pbsnodes_xml->Node as $value) {
 $node_job_counts = [];
 $owners = [];
 foreach ($qstat_xml->Job as $value) {
+    if ($value->job_state != 'R') continue;
     $exec_host = explode("+", (string)$value->exec_host);
     $owner = explode("@", (string)$value->Job_Owner) [0];
     $owners[] = $owner;
