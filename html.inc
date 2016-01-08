@@ -64,17 +64,27 @@
                         </span>
                         <script>
                             var doughnutData = [
+                            <?php foreach ($node_job_counts as $owner=>
+                            $value) {
+                            if(!isset($value[$node_name])||$value[$node_name]==0)continue;
+                            ?>
                             {
                             value:
-                            <?php echo $job_counts[$node_name];?>
+                            <?php echo $value[$node_name];?>
                             ,
-                            color: "#fbaa6e"
+                            color:
+                            <?php echo '"'.$palette[$owner].'"'; ?>
+                            ,
+                            label:
+                            <?php echo "'$owner'"; ?>
                             },
+                            <?php }?>
                             {
                             value:
                             <?php echo $job_threads[$node_name]-$job_counts[$node_name];?>
                             ,
-                            color: "#A8BECB"
+                            color: "#58616A",
+                            label: "Empty"
                             }
                             ];
                             var myDoughnut = new Chart(document.getElementById("<?php  echo $node_name; ?>").
@@ -93,17 +103,25 @@
                         </span>
                         <script>
                             var doughnutData = [
+                            <?php foreach ($node_job_counts as $owner=>
+                            $value) { ?>
                             {
                             value:
-                            <?php echo array_sum($job_counts);?>
+                            <?php echo array_sum($value);?>
                             ,
-                            color: "#aaf2fb"
+                            color:
+                            <?php echo '"'.$palette[$owner].'"'; ?>
+                            ,
+                            label:
+                            <?php echo "'$owner'"; ?>
                             },
+                            <?php }?>
                             {
                             value:
                             <?php echo array_sum($job_threads)-array_sum($job_counts);?>
                             ,
-                            color: "#A8BECB"
+                            color: "#58616A",
+                            label: "Empty"
                             }
                             ];
                             var myDoughnut = new Chart(document.getElementById("all_nodes").

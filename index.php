@@ -11,5 +11,29 @@ foreach ($pbsnodes_xml->Node as $value) {
     $job_counts[$node_name] = substr_count($value->jobs, ',') + 1;
     $job_threads[$node_name] = (int)$value->np;
 }
+
+$qstat = [];
+$node_job_counts = [];
+$owners = [];
+foreach ($qstat_xml->Job as $value) {
+    array_push($qstat, $value);
+    $exec_host = explode("+", (string)$value->exec_host);
+    $owner = explode("@", (string)$value->Job_Owner) [0];
+    $owners[] = $owner;
+    foreach ($exec_host as $host) {
+        $node_name = explode("/", $host) [0];
+        if (!isset($node_job_counts[$owner][$node_name])) $node_job_counts[$owner][$node_name] = 0;
+        $node_job_counts[$owner][$node_name]++;
+    }
+}
+
+$owners = array_unique($owners);
+$colors = ["#74A82A", "#D55511", "#3565A1", "#A42F11", "#EEA435", "#6BA2D0", "#B7C4CF", "#75D0ED"];
+$k = 0;
+$palette = [];
+foreach ($owners as $owner) {
+    $palette[$owner] = $colors[$k];
+    $k = ($k + 1) % sizeof($colors);
+}
 include ('html.inc');
 ?>
