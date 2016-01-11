@@ -8,7 +8,12 @@ $job_threads = [];
 foreach ($pbsnodes_xml->Node as $value) {
     $node_name = (string)$value->name;
     array_push($pbsnodes, $value);
-    $job_counts[$node_name] = substr_count($value->jobs, ',') + 1;
+    if (isset($value->jobs)) {
+        $job_counts[$node_name] = substr_count($value->jobs, ',') + 1;
+    }
+    else {
+        $job_counts[$node_name] = 0;
+    }
     $job_threads[$node_name] = (int)$value->np;
 }
 
