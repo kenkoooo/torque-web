@@ -59,8 +59,7 @@
                             <?php  echo $node_name; ?>
                         </h4>
                         <span class="text-muted">
-                            <?php echo $value->
-                            state;?>
+                            <?php echo $value->state;?>
                         </span>
                         <script>
                             var doughnutData = [
@@ -139,7 +138,7 @@
                         data-sort-order="asc">
                         <thead>
                             <tr>
-                                <th data-field="id" data-sortable="true" data-field="id" data-sortable="true">
+                                <th data-field="id" data-sortable="true">
                                     #
                                 </th>
                                 <th data-field="name" data-sortable="true">
@@ -156,6 +155,9 @@
                                 </th>
                                 <th data-field="time" data-sortable="true">
                                     Used Time
+                                </th>
+                                <th data-field="mem" data-sortable="true">
+                                    Memory
                                 </th>
                             </tr>
                         </thead>
@@ -187,6 +189,11 @@
                                     <?php echo $value->
                                     resources_used->
                                     walltime;?>
+                                </td>
+                                <td>
+                                    <?php echo $value->
+                                    resources_used->
+                                    mem;?>
                                 </td>
                             </tr>
                             <?php endforeach ?>
