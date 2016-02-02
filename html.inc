@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
         <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
         <title>
-            Torque Web Interface
+        Torque Web Interface
         </title>
         <!-- Bootstrap core CSS -->
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
@@ -40,7 +40,7 @@
         <div class="container">
             <div class="row">
                 <h1 class="page-header">
-                    Dashboard
+                Dashboard
                 </h1>
                 <div class="row placeholders">
                     <?php
@@ -50,44 +50,44 @@
                     ?>
                     <div class='col-xs-6 col-sm-3 placeholder'>
                         <canvas width='200' height='200' style='width: 100px; height: 100px;' id=
-                            <?php
-                            echo "'$node_name'";
-                            ?>
-                            >
+                        <?php
+                        echo "'$node_name'";
+                        ?>
+                        >
                         </canvas>
                         <h4>
-                            <?php  echo $node_name; ?>
+                        <?php  echo $node_name; ?>
                         </h4>
                         <span class="text-muted">
                             <?php echo $value->state;?>
                         </span>
                         <script>
-                            var doughnutData = [
-                            <?php foreach ($node_job_counts as $owner=>
-                            $value) {
-                            if(!isset($value[$node_name])||$value[$node_name]==0)continue;
-                            ?>
-                            {
-                            value:
-                            <?php echo $value[$node_name];?>
-                            ,
-                            color:
-                            <?php echo '"'.$palette[$owner].'"'; ?>
-                            ,
-                            label:
-                            <?php echo "'$owner'"; ?>
-                            },
-                            <?php }?>
-                            {
-                            value:
-                            <?php echo $job_threads[$node_name]-$job_counts[$node_name];?>
-                            ,
-                            color: "#58616A",
-                            label: "Empty"
-                            }
-                            ];
-                            var myDoughnut = new Chart(document.getElementById("<?php  echo $node_name; ?>").
-                            getContext("2d")).Doughnut(doughnutData);
+                        var doughnutData = [
+                        <?php foreach ($node_job_counts as $owner=>
+                        $value) {
+                        if(!isset($value[$node_name])||$value[$node_name]==0)continue;
+                        ?>
+                        {
+                        value:
+                        <?php echo $value[$node_name];?>
+                        ,
+                        color:
+                        <?php echo '"'.$palette[$owner].'"'; ?>
+                        ,
+                        label:
+                        <?php echo "'$owner'"; ?>
+                        },
+                        <?php }?>
+                        {
+                        value:
+                        <?php echo $job_threads[$node_name]-$job_counts[$node_name];?>
+                        ,
+                        color: "#58616A",
+                        label: "Empty"
+                        }
+                        ];
+                        var myDoughnut = new Chart(document.getElementById("<?php  echo $node_name; ?>").
+                        getContext("2d")).Doughnut(doughnutData);
                         </script>
                     </div>
                     <?php endforeach; ?>
@@ -95,41 +95,41 @@
                         <canvas width='200' height='200' style='width: 100px; height: 100px;' id="all_nodes">
                         </canvas>
                         <h4>
-                            All
+                        All
                         </h4>
                         <span class="text-muted">
                             <?php echo intval(array_sum($job_counts)*100/array_sum($job_threads))."% Used";?>
                         </span>
                         <script>
-                            var doughnutData = [
-                            <?php foreach ($node_job_counts as $owner=>
-                            $value) { ?>
-                            {
-                            value:
-                            <?php echo array_sum($value);?>
-                            ,
-                            color:
-                            <?php echo '"'.$palette[$owner].'"'; ?>
-                            ,
-                            label:
-                            <?php echo "'$owner'"; ?>
-                            },
-                            <?php }?>
-                            {
-                            value:
-                            <?php echo array_sum($job_threads)-array_sum($job_counts);?>
-                            ,
-                            color: "#58616A",
-                            label: "Empty"
-                            }
-                            ];
-                            var myDoughnut = new Chart(document.getElementById("all_nodes").
-                            getContext("2d")).Doughnut(doughnutData);
+                        var doughnutData = [
+                        <?php foreach ($node_job_counts as $owner=>
+                        $value) { ?>
+                        {
+                        value:
+                        <?php echo array_sum($value);?>
+                        ,
+                        color:
+                        <?php echo '"'.$palette[$owner].'"'; ?>
+                        ,
+                        label:
+                        <?php echo "'$owner'"; ?>
+                        },
+                        <?php }?>
+                        {
+                        value:
+                        <?php echo array_sum($job_threads)-array_sum($job_counts);?>
+                        ,
+                        color: "#58616A",
+                        label: "Empty"
+                        }
+                        ];
+                        var myDoughnut = new Chart(document.getElementById("all_nodes").
+                        getContext("2d")).Doughnut(doughnutData);
                         </script>
                     </div>
                 </div>
                 <h2 class="sub-header">
-                    Jobs
+                Jobs
                 </h2>
                 <div class="table-responsive">
                     <table class="table table-striped" data-toggle="table"
@@ -157,7 +157,7 @@
                                     Used Time
                                 </th>
                                 <th data-field="mem" data-sortable="true">
-                                    Memory
+                                    Memory (kb)
                                 </th>
                             </tr>
                         </thead>
@@ -191,9 +191,11 @@
                                     walltime;?>
                                 </td>
                                 <td>
-                                    <?php echo $value->
-                                    resources_used->
-                                    mem;?>
+                                    <?php
+                                    $kb = $value->resources_used->mem;
+                                    $kb=str_replace("kb", "", $kb);
+                                    echo number_format($kb);
+                                    ?>
                                 </td>
                             </tr>
                             <?php endforeach ?>
@@ -203,8 +205,8 @@
             </div>
         </div>
         <!--
-            Bootstrap core JavaScript
-            ==================================================
+        Bootstrap core JavaScript
+        ==================================================
         -->
         <!-- Placed at the end of the document so the pages load faster -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
