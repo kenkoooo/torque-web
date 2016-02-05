@@ -1,7 +1,6 @@
 <?php
 $qstat_xml = simplexml_load_string(shell_exec('qstat -x'));
 $pbsnodes_xml = simplexml_load_string(shell_exec('pbsnodes -x'));
-
 $pbsnodes = [];
 $job_counts = [];
 $job_threads = [];
@@ -15,14 +14,13 @@ foreach ($pbsnodes_xml->Node as $value) {
 	}
 	$job_threads[$node_name] = (int) $value->np;
 }
-
 $node_job_counts = [];
 $owners = [];
+$node_used_memory = [];
 foreach ($qstat_xml->Job as $value) {
 	if ($value->job_state != 'R') {
 		continue;
 	}
-
 	$exec_host = explode("+", (string) $value->exec_host);
 	$owner = explode("@", (string) $value->Job_Owner)[0];
 	$owners[] = $owner;
@@ -31,11 +29,11 @@ foreach ($qstat_xml->Job as $value) {
 		if (!isset($node_job_counts[$owner][$node_name])) {
 			$node_job_counts[$owner][$node_name] = 0;
 		}
-
 		$node_job_counts[$owner][$node_name]++;
 	}
+	$kb = $value->resources_used->mem;
+	$node_used_memory[$node_name] += str_replace("kb", "", $kb);
 }
-
 $owners = array_unique($owners);
 $colors = ["#74A82A", "#D55511", "#3565A1", "#A42F11", "#EEA435", "#6BA2D0", "#B7C4CF", "#75D0ED"];
 shuffle($colors);

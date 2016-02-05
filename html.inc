@@ -59,7 +59,7 @@
                         <?php  echo $node_name; ?>
                         </h4>
                         <span class="text-muted">
-                            <?php echo $value->state;?>
+                            <?php echo number_format($node_used_memory[$node_name])." KB Used";?>
                         </span>
                         <script>
                         var doughnutData = [
@@ -193,8 +193,12 @@
                                 <td>
                                     <?php
                                     $kb = $value->resources_used->mem;
+                                    if(strpos($kb,"kb")===false){
+                                    
+                                    }else{
                                     $kb=str_replace("kb", "", $kb);
                                     echo number_format($kb);
+                                    }
                                     ?>
                                 </td>
                             </tr>
