@@ -14,7 +14,7 @@
         <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.9.1/bootstrap-table.min.css"/>
         <!-- Custom styles for this template -->
         <link href="dashboard.css" rel="stylesheet"/>
-        <script src="./Chart.js/Chart.js">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.js">
         </script>
         <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     </head>
